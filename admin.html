@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Gerenciamento de Produtos</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Admin - Gerenciamento de Produtos</h1>
+        </div>
+    </header>
+    <div class="container main">
+        <h2>Adicionar Produto</h2>
+        <form id="productForm">
+            <div class="form-group">
+                <label for="productName">Nome do Produto</label>
+                <input type="text" id="productName" required>
+            </div>
+            <div class="form-group">
+                <label for="productDescription">Descrição</label>
+                <textarea id="productDescription" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="productPrice">Preço</label>
+                <input type="number" id="productPrice" required>
+            </div>
+            <div class="form-group">
+                <label for="productImage">URL da Imagem</label>
+                <input type="text" id="productImage" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Adicionar Produto</button>
+            </div>
+        </form>
+
+        <h2>Lista de Produtos</h2>
+        <table id="productTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th>Imagem</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Produtos serão carregados aqui -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const productForm = document.getElementById('productForm');
+            const productTable = document.getElementById('productTable').getElementsByTagName('tbody')[0];
+
+            productForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const name = document.getElementById('productName').value;
+                const description = document.getElementById('productDescription').value;
+                const price = document.getElementById('productPrice').value;
+                const image = document.getElementById('productImage').value;
+
+                // Adicionar produto ao banco de dados (exemplo de requisição fetch)
+                fetch('add_product.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, description, price, image })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        loadProducts();
+                        productForm.reset();
+                    } else {
+                        alert('Erro ao adicionar produto');
+                    }
+                });
+            });
+
+            function loadProducts() {
+                fetch('fetch_products.php')
+                .then(response => response.json())
+                .then(data => {
+                    productTable.innerHTML = '';
+                    if (data.length > 0) {
+                        data.forEach(product => {
+                            const row = productTable.insertRow();
+                            row.insertCell(0).innerText = product.id;
+                            row.insertCell(1).innerText = product.nome;
+                            row.insertCell(2).innerText = product.descricao;
+                            row.insertCell(3).innerText = product.preco;
+                            row.insertCell(4).innerHTML = `<img src="${product.imagem}" alt="${product.nome}" style="width: 50px;">`;
+                            const actionsCell = row.insertCell(5);
+                            actionsCell.innerHTML = `<button onclick="editProduct(${product.id})">Editar</button> <button onclick="deleteProduct(${product.id})">Excluir</button>`;
+                        });
+                    } else {
+                        productTable.innerHTML = '<tr><td colspan="6">Nenhum produto encontrado</td></tr>';
+                    }
+                });
+            }
+
+            window.editProduct = function(id) {
+                // Função para editar produto
+                // Implementar lógica para editar produto
+            };
+
+            window.deleteProduct = function(id) {
+                // Função para excluir produto
+                fetch(`delete_product.php?id=${id}`, {
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        loadProducts();
+                    } else {
+                        alert('Erro ao excluir produto');
+                    }
+                });
+            };
+
+            loadProducts();
+        });
+    </script>
+</body>
+</html>
