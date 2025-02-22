@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "superevoltado";
 $dbname = "loja_db";
 
 // Cria a conexão
