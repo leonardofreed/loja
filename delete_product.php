@@ -1,15 +1,16 @@
 <?php
-$servername = "192.168.18.193";
-$username = "espetacular";
-$password = "revoltado";
-$dbname = "leonardogamer.blog";
+$servername = "192.168.18.193"; // Update to the new server address
+$username = "espetacular"; // Use new username
+$password = "superevoltado"; // Use new password
+$dbname = "leonardogamer.blog"; // Keep the database name the same
 
 // Cria a conexão
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Verifica a conexão
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die("Falha na conexão: " . $conn->connect_error);
+
 }
 
 // Recebe o ID do produto a ser excluído
@@ -20,15 +21,18 @@ $sql = "DELETE FROM produtos WHERE id = ?";
 $stmt = $conn->prepare($sql);
 
 if ($stmt === false) {
-    die("Prepare failed: " . $conn->error);
+    die("Falha ao preparar: " . $conn->error);
+
 }
 
 $stmt->bind_param("i", $id);
 
 if ($stmt->execute()) {
-    echo json_encode(array("success" => true));
+    echo json_encode(array("sucesso" => true));
+
 } else {
-    echo json_encode(array("success" => false, "error" => $stmt->error));
+    echo json_encode(array("sucesso" => false, "erro" => $stmt->error));
+
 }
 
 $stmt->close();

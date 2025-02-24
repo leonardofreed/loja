@@ -1,22 +1,26 @@
 <?php
-$servername = "192.168.18.193";
-$username = "espetacular";
-$password = "revoltado";
-$dbname = "leonardogamer.blog";
+$servername = "192.168.18.193"; // Update to the new server address
+$username = "espetacular"; // Use new username
+$password = "superevoltado"; // Use new password
+$dbname = "leonardogamer.blog"; // Keep the database name the same
+
+
 
 // Cria a conexão
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Verifica a conexão
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die("Falha na conexão: " . $conn->connect_error);
+
 }
 
 $sql = "SELECT id, nome, descricao, preco, imagem FROM produtos";
 $stmt = $conn->prepare($sql);
 
 if ($stmt === false) {
-    die("Prepare failed: " . $conn->error);
+    die("Falha ao preparar: " . $conn->error);
+
 }
 
 $stmt->execute();
@@ -29,7 +33,8 @@ if ($result->num_rows > 0) {
         $produtos[] = $row;
     }
 } else {
-    echo json_encode(array("message" => "No products found"));
+    echo json_encode(array("message" => "Nenhum produto encontrado"));
+
     exit;
 }
 
