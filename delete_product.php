@@ -1,5 +1,5 @@
 <?php
-$servername = "192.168.18.193"; // Update to the new server address
+$servername = "localhost"; // Update to the new server address
 $username = "espetacular"; // Use new username
 $password = "superevoltado"; // Use new password
 $dbname = "leonardogamer.blog"; // Keep the database name the same
