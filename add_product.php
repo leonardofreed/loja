@@ -1,7 +1,7 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "superevoltado";
+$servername = "leonardogamer.blog";
+$username = "espetacular";
+$password = "revoltado";
 $dbname = "loja_db";
 
 // Cria a conexão
