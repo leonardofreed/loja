@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Produtos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Catálogo de Produtos</h1>
+    <div class="catalog">
+        <div class="product">
+            <img src="produto1.jpg" alt="Produto 1">
+            <h2>Produto 1</h2>
+            <p>Descrição do produto 1.</p>
+            <p class="price">R$ 100,00</p>
+            <button onclick="addToCart('Produto 1', 100)">Adicionar ao Carrinho</button>
+        </div>
+        <div class="product">
+            <img src="https://bing.com/th?id=OSK.942ee464125395c0960cb6b1f8a87dc7" alt="Produto 2">
+            <h2>Produto 2</h2>
+            <p>Descrição do produto 2.</p>
+            <p class="price">R$ 150,00</p>
+            <button onclick="addToCart('Produto 2', 150)">Adicionar ao Carrinho</button>
+        </div>
+        <div class="product">
+            <img src="produto3.jpg" alt="Produto 3">
+            <h2>Produto 3</h2>
+            <p>Descrição do produto 3.</p>
+            <p class="price">R$ 200,00</p>
+            <button onclick="addToCart('Produto 3', 200)">Adicionar ao Carrinho</button>
+        </div>
+        <!-- Adicione mais produtos conforme necessário -->
+    </div>
+    <a href="carrinho.html" class="view-cart">Ver Carrinho</a>
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let total = cart.reduce((sum, item) => sum + item.price, 0);
+
+        function addToCart(product, price) {
+            cart.push({ product, price });
+            total += price;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert('Produto adicionado ao carrinho!');
+        }
+    </script>
+</body>
+</html>
