@@ -49,8 +49,13 @@
         let total = cart.reduce((sum, item) => sum + item.price, 0);
 
         function addToCart(product, price) {
-            cart.push({ product, price });
-            total += price;
+            const existingProduct = cart.find(item => item.product === product);
+            if (existingProduct) {
+                existingProduct.price += price; // Sumariza o preço se o produto já estiver no carrinho
+            } else {
+                cart.push({ product, price });
+            }
+            total += price; // Atualiza o total
             localStorage.setItem('cart', JSON.stringify(cart));
             const button = document.querySelector(`button[onclick="addToCart('${product}', ${price})"]`);
             button.classList.add('added');
@@ -70,7 +75,6 @@
             setTimeout(() => {
                 document.body.removeChild(message);
             }, 2000);
-
         }
     </script>
 </body>
