@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Produtos</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .added {
+            animation: pulse 1s;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Catálogo de Produtos</h1>
+    <div class="catalog">
+        <div class="product">
+            <img src="https://bing.com/th?id=OSK.942ee464125395c0960cb6b1f8a87dc7" alt="Produto 1">
+            <h2>Produto 1</h2>
+            <p>Descrição do produto 1.</p>
+            <p class="price">R$ 100,00</p>
+            <button onclick="addToCart('Produto 1', 100)">Adicionar ao Carrinho</button>
+        </div>
+        <div class="product">
+            <img src="https://bing.com/th?id=OSK.942ee464125395c0960cb6b1f8a87dc7" alt="Produto 2">
+            <h2>Produto 2</h2>
+            <p>Descrição do produto 2.</p>
+            <p class="price">R$ 150,00</p>
+            <button onclick="addToCart('Produto 2', 150)">Adicionar ao Carrinho</button>
+        </div>
+        <div class="product">
+            <img src="https://bing.com/th?id=OSK.942ee464125395c0960cb6b1f8a87dc7" alt="Produto 3">
+            <h2>Produto 3</h2>
+            <p>Descrição do produto 3.</p>
+            <p class="price">R$ 201,00</p>
+            <button onclick="addToCart('Produto 3', 200)">Adicionar ao Carrinho</button>
+        </div>
+        <!-- Adicione mais produtos conforme necessário -->
+    </div>
+<a href="carrinho.html" class="view-cart">Ver Carrinho</a>
+
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let total = cart.reduce((sum, item) => sum + item.price, 0);
+
+        function addToCart(product, price) {
+            const existingProduct = cart.find(item => item.product === product);
+            if (existingProduct) {
+                existingProduct.price += price; // Sumariza o preço se o produto já estiver no carrinho
+            } else {
+                cart.push({ product, price });
+            }
+            total += price; // Atualiza o total
+            localStorage.setItem('cart', JSON.stringify(cart));
+            const button = document.querySelector(`button[onclick="addToCart('${product}', ${price})"]`);
+            button.classList.add('added');
+            setTimeout(() => {
+                button.classList.remove('added');
+            }, 1000);
+            const message = document.createElement('div');
+            message.textContent = 'Produto adicionado ao carrinho!';
+            message.style.position = 'fixed';
+            message.style.top = '10px';
+            message.style.right = '10px';
+            message.style.backgroundColor = 'green';
+            message.style.color = 'white';
+            message.style.padding = '10px';
+            message.style.borderRadius = '5px';
+            document.body.appendChild(message);
+            setTimeout(() => {
+                document.body.removeChild(message);
+            }, 2000);
+        }
+
+        function showCartSummary() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let total = cart.reduce((sum, item) => sum + item.price, 0);
+            let summary = 'Resumo do Carrinho:\n';
+            cart.forEach(item => {
+                summary += `${item.product}: R$ ${item.price}\n`;
+            });
+            summary += `Total: R$ ${total}`;
+            alert(summary);
+            window.location.href = 'carrinho.html';
+        }
+    </script>
+</body>
+</html>
