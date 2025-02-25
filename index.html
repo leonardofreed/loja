@@ -43,7 +43,9 @@
         </div>
         <!-- Adicione mais produtos conforme necessário -->
     </div>
-    <a href="carrinho.html" class="view-cart">Ver Carrinho</a>
+<a href="carrinho.html" class="view-cart">Ver Carrinho</a>
+
+
     <script>
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         let total = cart.reduce((sum, item) => sum + item.price, 0);
@@ -75,6 +77,18 @@
             setTimeout(() => {
                 document.body.removeChild(message);
             }, 2000);
+        }
+
+        function showCartSummary() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let total = cart.reduce((sum, item) => sum + item.price, 0);
+            let summary = 'Resumo do Carrinho:\n';
+            cart.forEach(item => {
+                summary += `${item.product}: R$ ${item.price}\n`;
+            });
+            summary += `Total: R$ ${total}`;
+            alert(summary);
+            window.location.href = 'carrinho.html';
         }
     </script>
 </body>
