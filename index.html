@@ -5,12 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo de Produtos</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .added {
+            animation: pulse 1s;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
     <h1>Catálogo de Produtos</h1>
-    <!-- Resumo do Carrinho removido -->
-
-
     <div class="catalog">
         <div class="product">
             <img src="https://bing.com/th?id=OSK.942ee464125395c0960cb6b1f8a87dc7" alt="Produto 1">
@@ -37,9 +45,6 @@
     </div>
     <a href="carrinho.html" class="view-cart">Ver Carrinho</a>
     <script>
-        // Função de resumo do carrinho removida
-
-
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         let total = cart.reduce((sum, item) => sum + item.price, 0);
 
@@ -47,7 +52,25 @@
             cart.push({ product, price });
             total += price;
             localStorage.setItem('cart', JSON.stringify(cart));
-            alert('Produto adicionado ao carrinho!');
+            const button = document.querySelector(`button[onclick="addToCart('${product}', ${price})"]`);
+            button.classList.add('added');
+            setTimeout(() => {
+                button.classList.remove('added');
+            }, 1000);
+            const message = document.createElement('div');
+            message.textContent = 'Produto adicionado ao carrinho!';
+            message.style.position = 'fixed';
+            message.style.top = '10px';
+            message.style.right = '10px';
+            message.style.backgroundColor = 'green';
+            message.style.color = 'white';
+            message.style.padding = '10px';
+            message.style.borderRadius = '5px';
+            document.body.appendChild(message);
+            setTimeout(() => {
+                document.body.removeChild(message);
+            }, 2000);
+
         }
     </script>
 </body>
