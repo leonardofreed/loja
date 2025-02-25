@@ -21,24 +21,29 @@
     <h1>Catálogo de Produtos</h1>
     <div class="catalog">
         <div class="product">
-            <img src="https://bing.com/th?id=OSK.942ee464125395c0960cb6b1f8a87dc7" alt="Produto 1">
+<img src="https://bing.com/th?id=OSK.942ee464125395c0960cb6b1f8a87dc7" alt="Imagem do Produto 1">
+
             <h2>Produto 1</h2>
             <p>Descrição do produto 1.</p>
             <p class="price">R$ 100,00</p>
             <button onclick="addToCart('Produto 1', 100)">Adicionar ao Carrinho</button>
         </div>
         <div class="product">
-            <img src="https://bing.com/th?id=OSK.942ee464125395c0960cb6b1f8a87dc7" alt="Produto 2">
+<img src="https://bing.com/th?id=OSK.942ee464125395c0960cb6b1f8a87dc7" alt="Imagem do Produto 2">
+
             <h2>Produto 2</h2>
             <p>Descrição do produto 2.</p>
             <p class="price">R$ 150,00</p>
             <button onclick="addToCart('Produto 2', 150)">Adicionar ao Carrinho</button>
         </div>
         <div class="product">
-            <img src="https://bing.com/th?id=OSK.942ee464125395c0960cb6b1f8a87dc7" alt="Produto 3">
+<img src="https://bing.com/th?id=OSK.942ee464125395c0960cb6b1f8a87dc7" alt="Imagem do Produto 3">
+
             <h2>Produto 3</h2>
             <p>Descrição do produto 3.</p>
             <p class="price">R$ 201,00</p>
+            <p class="error-message" style="color: red; display: none;">Preço inválido!</p>
+
             <button onclick="addToCart('Produto 3', 200)">Adicionar ao Carrinho</button>
         </div>
         <!-- Adicione mais produtos conforme necessário -->
@@ -51,6 +56,11 @@
         let total = cart.reduce((sum, item) => sum + item.price, 0);
 
         function addToCart(product, price) {
+            if (isNaN(price) || price <= 0) {
+                alert('Preço inválido!'); 
+                return; 
+            }
+
             const existingProduct = cart.find(item => item.product === product);
             if (existingProduct) {
                 existingProduct.price += price; // Sumariza o preço se o produto já estiver no carrinho
