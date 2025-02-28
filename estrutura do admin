@@ -1,0 +1,17 @@
+/projeto
+│
+├── admin/
+│   ├── index.php          // Dashboard do admin
+│   ├── produtos.php       // Gerenciar produtos
+│   ├── clientes.php       // Gerenciar clientes
+│   ├── pedidos.php        // Gerenciar pedidos
+│   └── logout.php         // Logout do admin
+│
+├── includes/
+│   ├── db.php             // Conexão com o banco de dados
+│   └── auth.php           // Autenticação do admin
+│
+├── styles/
+│   └── admin.css          // Estilos do painel admin
+│
+└── index.php              // Página inicial do site

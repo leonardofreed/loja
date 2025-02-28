@@ -1,0 +1,64 @@
+/* Estilos para os links de Cadastre-se e Sair */
+.user-actions {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px; /* Espaçamento entre os links */
+}
+
+.user-actions a {
+    text-decoration: none;
+    font-size: 1em;
+    padding: 8px 16px;
+    border-radius: 25px; /* Bordas arredondadas */
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.user-actions .btn-cadastro {
+    background-color: #007bff;
+    color: white;
+    border: 2px solid #007bff;
+}
+
+.user-actions .btn-cadastro:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.user-actions .btn-sair {
+    background-color: #dc3545;
+    color: white;
+    border: 2px solid #dc3545;
+}
+
+.user-actions .btn-sair:hover {
+    background-color: #a71d2a;
+    border-color: #a71d2a;
+}
+
+/* Estilos gerais */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    position: relative; /* Para o posicionamento absoluto funcionar corretamente */
+}
+
+h1 {
+    text-align: center;
+    margin-top: 80px; /* Ajuste para evitar sobreposição com os links */
+    color: #333;
+    font-size: 2.5em;
+    font-weight: 600;
+}
+
+form {
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 25px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    background-color
